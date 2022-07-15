@@ -20,16 +20,10 @@ RUN apt-get -y update  && \
         unzip \
         nano vim 
 
-#########################################
-#####  Prepare files and enviroment #####
-#########################################
-COPY src /root
+
+## Change working path  ##
 WORKDIR /root
 
-#RUN echo export PATH="/root/Desktop/anaconda3/bin:$PATH"  >> /etc/skel/.bashrc
-
-
-#RUN useradd -ms /bin/bash ubuntu && cp /etc/skel/.bash* ~
 
 ##########################
 #### Install Anaconda ####
@@ -38,22 +32,45 @@ COPY libraries/Anaconda3-2018.12-Linux-x86_64.sh .
 RUN bash Anaconda3-2018.12-Linux-x86_64.sh -b  && \
     rm -f Anaconda3-2018.12-Linux-x86_64.sh 
 
-RUN echo $PATH
-ENV PATH="/home/ubuntu/anaconda3/bin:$PATH"
-RUN echo $PATH
+##########################
+###### Install Boost #####
+##########################
+ADD libraries/boost_1_41_0.tar.gz /home/ubuntu/
 
+##########################
+### Install Freesurfer ###
+##########################
+ADD libraries/freesurfer-linux-ubuntu18_amd64-7.2.0.tar.gz /home/ubuntu/
 
-#######################
-#### Install Boost ####
-#######################
-#ADD libraries/boost_1_41_0.tar.gz .
+#########################
+### Prepare Envioment ###
+### and dependencies  ###
+#########################
 
-############################
-#### Install Freesurfer ####
-############################
-#ADD libraries/freesurfer-linux-ubuntu18_amd64-7.2.0.tar.gz .
+# Set language
+ENV LANG="en_US.UTF-8" \
+    LC_ALL="en_US.UTF-8"
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
+    echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
+# Add freesurfer to path
+ENV FREESURFER_HOME=/home/ubuntu/freesurfer \
+    SUBJECTS_DIR=/home/ubuntu/freesurfer/subjects \
+    DYLD_FALLBACK_LIBRARY_PATH=/usr/lib:$DYLD_LIBRARY_PATH 
 
-RUN bash startup.sh
+# Get img_pipe
+RUN git clone https://github.com/changlabucsf/img_pipe && \
+    /home/ubuntu/anaconda3/bin/conda env create -f img_pipe/environment_py27.yml && \
+    wget https://raw.githubusercontent.com/jersaal/img_pipe_subf/master/img_pipe.py && \
+    mv -fv img_pipe.py /home/ubuntu/anaconda3/envs/img_pipe_py2/lib/python2.7/site-packages/img_pipe/img_pipe.py
+
+# Add anaconda to path and freesurfer to terminal
+RUN ln -sf /home/ubuntu/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    ln -sf /home/ubuntu/anaconda3/bin/conda /usr/bin/conda && \
+    echo source /home/ubuntu/anaconda3/etc/profile.d/conda.sh >> /root/.bashrc && \
+    echo source $FREESURFER_HOME/SetUpFreeSurfer.sh >> /root/.bashrc && \
+    ln -sf /home/ubuntu/freesurfer/ /root/freesurfer && \
+    ln -sf /home/ubuntu/boost_1_41_0/ /root/boost_1_41_0 
 
 
