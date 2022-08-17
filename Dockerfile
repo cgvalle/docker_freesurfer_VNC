@@ -74,3 +74,29 @@ RUN ln -sf /home/ubuntu/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
     ln -sf /home/ubuntu/boost_1_41_0/ /root/boost_1_41_0 
 
 
+
+# Install visual studio Code
+RUN curl -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -o vsc.deb && \
+    apt install ./vsc.deb && \ 
+    echo "alias vscode='code . --user-data-dir="/root/vscode" --no-sandbox'" >> /root/.bashrc
+
+RUN conda update conda --yes
+RUN wget https://raw.githubusercontent.com/mne-tools/mne-python/main/environment.yml && \
+    /home/ubuntu/anaconda3/bin/conda env create -f environment.yml && \
+    rm -f environment.yml
+
+
+RUN rm -r img_pipe
+
+
+
+RUN git clone https://github.com/c-herff/img_pipe.git && \
+    mv img_pipe/img_pipe /home/ubuntu/anaconda3/envs/mne/lib/python3.10/site-packages/
+
+
+#RUN git clone https://github.com/c-herff/img_pipe.git  && \
+
+
+
+
+
