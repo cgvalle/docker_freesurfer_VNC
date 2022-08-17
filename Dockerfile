@@ -41,6 +41,7 @@ ADD libraries/boost_1_41_0.tar.gz /home/ubuntu/
 ### Install Freesurfer ###
 ##########################
 ADD libraries/freesurfer-linux-ubuntu18_amd64-7.2.0.tar.gz /home/ubuntu/
+ADD libraries/license.zip /home/ubuntu/freesurfer
 
 #########################
 ### Prepare Envioment ###
@@ -56,7 +57,7 @@ RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment && \
 
 # Add freesurfer to path
 ENV FREESURFER_HOME=/home/ubuntu/freesurfer \
-    SUBJECTS_DIR=/home/ubuntu/freesurfer/subjects \
+    SUBJECTS_DIR=/root/persistent/subjects \
     DYLD_FALLBACK_LIBRARY_PATH=/usr/lib:$DYLD_LIBRARY_PATH 
 
 # Get img_pipe
@@ -71,7 +72,8 @@ RUN ln -sf /home/ubuntu/anaconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
     echo source /home/ubuntu/anaconda3/etc/profile.d/conda.sh >> /root/.bashrc && \
     echo source $FREESURFER_HOME/SetUpFreeSurfer.sh >> /root/.bashrc && \
     ln -sf /home/ubuntu/freesurfer/ /root/freesurfer && \
-    ln -sf /home/ubuntu/boost_1_41_0/ /root/boost_1_41_0 
+    ln -sf /home/ubuntu/boost_1_41_0/ /root/boost_1_41_0 && \
+    mkdir -p /root/persistent/subjects 
 
 
 
@@ -81,20 +83,14 @@ RUN curl -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -o vsc.deb && \
     echo "alias vscode='code . --user-data-dir="/root/vscode" --no-sandbox'" >> /root/.bashrc
 
 RUN conda update conda --yes
-RUN wget https://raw.githubusercontent.com/mne-tools/mne-python/main/environment.yml && \
-    /home/ubuntu/anaconda3/bin/conda env create -f environment.yml && \
-    rm -f environment.yml
 
-
-RUN rm -r img_pipe
-
-
-
-RUN git clone https://github.com/c-herff/img_pipe.git && \
-    mv img_pipe/img_pipe /home/ubuntu/anaconda3/envs/mne/lib/python3.10/site-packages/
-
-
-#RUN git clone https://github.com/c-herff/img_pipe.git  && \
+# Instal img_pipe of Christian Herff: https://github.com/c-herff/img_pipe
+RUN rm -r img_pipe && \
+    /home/ubuntu/anaconda3/bin/conda create --name=img_pipe_mne --channel=conda-forge mne && \
+    git clone https://github.com/c-herff/img_pipe.git && \
+    mv img_pipe/img_pipe /home/ubuntu/anaconda3/envs/img_pipe_mne/lib/python3.10/site-packages/  && \
+    /home/ubuntu/anaconda3/envs/img_pipe_mne/bin/python -m pip install nipy mayavi  && \
+    rm -r img_pipe
 
 
 
