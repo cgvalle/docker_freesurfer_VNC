@@ -25,8 +25,13 @@ Container images are configured using parameters passed at runtime (such as thos
 |  -p 5900:5900|  Access through VNC remote conection. If not in use, this option can be omited|
 |  -v /root/persistent| Recommended to have a persistant volume of `subjects` folder.|
 
-
 NOTE: The folder `subjects` needs to be created manually during the first run if a volume is mounted in `/root/persistent`. 
+
+
+
+## Freesurfer Licence
+Freesurfer requires a free licence that can be requested at their [website](https://surfer.nmr.mgh.harvard.edu/fswiki/License).  You will recibe a text file that need to be place in the `/home/ubuntu/freesurfer` folder (default path for $FREESURFER_HOME). 
+
 
 For suggestions and bug fixes you can contactme at **cgvalle@uc.cl**.
 
