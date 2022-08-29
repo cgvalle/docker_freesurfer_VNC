@@ -30,7 +30,7 @@ NOTE: The folder `subjects` needs to be created manually during the first run if
 
 
 ## Freesurfer Licence
-Freesurfer requires a free licence that can be requested at their [website](https://surfer.nmr.mgh.harvard.edu/fswiki/License).  You will recibe a text file that need to be place in the `/home/ubuntu/freesurfer` folder (default path for $FREESURFER_HOME). 
+Freesurfer requires a free licence that can be requested at their [website](https://surfer.nmr.mgh.harvard.edu/fswiki/License).  You will recibe a text file that needs to be place in the `/home/ubuntu/freesurfer` folder (default path for $FREESURFER_HOME). 
 
 
 For suggestions and bug fixes you can contactme at **cgvalle@uc.cl**.
