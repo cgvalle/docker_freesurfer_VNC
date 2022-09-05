@@ -1,14 +1,13 @@
-# FreeSurfer VNC
 
-A docker container of the popular package [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/).  
+A docker container of the popular package [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/), compatible with Windows, Mac, and Linux.
 
 ## Usage
-docker cli
+Docker cli 
 ```
 docker run -d\
     --name freesurfer_vnc \
     -e VNC_PASSWORD=mypassword \
-    -e SUBJECTS_DIR=/root/persistent/sujects \  
+    -e SUBJECTS_DIR=/root/persistent/subjects \  
     -v $HOME/docker/freesurfer_VNC:/root/persistent \  # Recomended
     -p 6080:80 -p 5900:5900 \
     cgvalle/freesurfer_vnc:latest
@@ -21,19 +20,39 @@ Container images are configured using parameters passed at runtime (such as thos
 | --- | ----------- |
 |  -e VNC_PASSWORD=| password for VNC login. Default is no password  |
 |  -e SUBJECTS_DIR | Path to freesurfer subject directory. Default is `/root/persistent/subjects` |
-|  -p 6080:80|   Accesss to desktop with no VNC (Browser). The container will be visible on `http://127.0.0.1:6080` | 
-|  -p 5900:5900|  Access through VNC remote conection. If not in use, this option can be omited|
-|  -v /root/persistent| Recommended to have a persistant volume of `subjects` folder.|
+|  -p 6080:80|   Access to desktop with no VNC (Browser). The container will be visible on `http://127.0.0.1:6080` | 
+|  -p 5900:5900|  Access through VNC remote connection. If not in use, this option can be omited|
+|  -v /root/persistent| Recommended to have a persistent volume of `subjects` folder.|
 
 NOTE: The folder `subjects` needs to be created manually during the first run if a volume is mounted in `/root/persistent`. 
 
 
+## Windows Setup
+Windows requires *Windows Subsystem for Linux* ([WSL](https://docs.microsoft.com/en-us/windows/wsl/install)) version 2. Although you can install it yourself, it is recommended to use [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) software that handles this process entirely. 
+
+You can use windows terminal (command prompt) or Powershell to run the container with the command:
+
+```
+docker run -d\
+    --name freesurfer_vnc \
+    -e VNC_PASSWORD=mypassword \
+    -e SUBJECTS_DIR=/root/persistent/subjects \  
+    -v //c/Users/<user_name>/Documents:/root/persistent \ 
+    -p 6080:80 -p 5900:5900 \
+    cgvalle/freesurfer_vnc:latest
+```
+The only difference to the Mac/Linux command is the structure of the path for the persistent volume. Windows requires a double slash (`/`) to indicate the directory. Additionally, `<user_name>` should be replaced accordingly. 
+
+
+
+
+
 
 ## Freesurfer Licence
-Freesurfer requires a free licence that can be requested at their [website](https://surfer.nmr.mgh.harvard.edu/fswiki/License).  You will recibe a text file that needs to be place in the `/home/ubuntu/freesurfer` folder (default path for $FREESURFER_HOME). 
+Freesurfer requires a free license that can be requested at their [website](https://surfer.nmr.mgh.harvard.edu/fswiki/License). You will receive a text file that needs to be placed in the `/home/ubuntu/freesurfer` folder (default path for $FREESURFER_HOME). 
 
 
-For suggestions and bug fixes you can contactme at **cgvalle@uc.cl**.
+For suggestions and bug fixes, you can contact me at **cgvalle@uc.cl**.
 
 
 The image is based on the VNC desktop container of [Vincent Emonet
