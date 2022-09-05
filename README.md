@@ -43,8 +43,7 @@ docker run -d\
 ```
 The only difference to the Mac/Linux command is the structure of the path for the persistent volume. Windows requires a double slash (`/`) to indicate the directory. Additionally, `<user_name>` should be replaced accordingly. 
 
-
-
+If everything works fine, you should be able to access it using your browser at `http://127.0.0.1:6080`.
 
 
 
