@@ -85,12 +85,12 @@ RUN curl -L 'https://go.microsoft.com/fwlink/?LinkID=760868' -o vsc.deb && \
 RUN conda update conda --yes
 
 # Instal img_pipe of Christian Herff: https://github.com/c-herff/img_pipe
-RUN rm -r img_pipe && \
-    /home/ubuntu/anaconda3/bin/conda create --name=img_pipe_mne --channel=conda-forge mne && \
-    git clone https://github.com/c-herff/img_pipe.git && \
-    mv img_pipe/img_pipe /home/ubuntu/anaconda3/envs/img_pipe_mne/lib/python3.10/site-packages/  && \
-    /home/ubuntu/anaconda3/envs/img_pipe_mne/bin/python -m pip install nipy mayavi  && \
-    rm -r img_pipe
+#RUN rm -r img_pipe && \
+#    /home/ubuntu/anaconda3/bin/conda create --name=img_pipe_mne --channel=conda-forge mne && \
+#    git clone https://github.com/c-herff/img_pipe.git && \
+#    mv img_pipe/img_pipe /home/ubuntu/anaconda3/envs/img_pipe_mne/lib/python3.10/site-packages/  && \
+#    /home/ubuntu/anaconda3/envs/img_pipe_mne/bin/python -m pip install nipy mayavi  && \
+#    rm -r img_pipe
 
 
 
