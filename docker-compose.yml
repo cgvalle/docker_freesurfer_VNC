@@ -3,6 +3,8 @@ services:
   freesurfer_vnc:
     container_name: freesurfer_vnc
     build: .
-    image: cgvalle/freesurfer_vnc:dev
+    image: cgvalle/freesurfer_vnc:latest
     restart: unless-stopped
+    ports:
+      - 9020:8080
 
