@@ -3,15 +3,25 @@ channels:
 - defaults
 dependencies:
 - cython=0.26
+- freetype=2.5.5=2
+- libpng=1.6.27=0
+- mkl=2017.0.3=0
+- numpy=1.13.1=py27_0
 - openssl=1.0.2l=0
 - pip=9.0.1=py27_1
+- pyqt=4.11.4=py27_4
 - python=2.7.13=0
+- qt=4.8.7=4
+- readline=6.2=2
+- scipy=0.19.1=np113py27_0
+- setuptools=27.2.0=py27_0
 - sip=4.18=py27_0
 - sqlite=3.13.0=0
+- tk=8.5.18=0
+- vtk=6.3.0=py27_1
 - wheel=0.29.0=py27_0
 - zlib=1.2.8=3
 - pip:
-  - setuptools
   - apptools==4.4.0
   - backports.shutil-get-terminal-size==1.0.0
   - configobj==5.0.6
@@ -49,13 +59,4 @@ dependencies:
   - traits==4.6.0
   - traitsui==5.1.0
   - wcwidth==0.1.7
-  - qt==4.8.7=4
-  - vtk==6.3.0=py27_1
-  - freetype==2.5.5=2
-  - readline==6.2=2
-  - scipy==0.19.1=np113py27_0
-  - mkl==2017.0.3=0
-  - numpy==1.13.1=py27_0
-  - libpng==1.6.27=0
-  - pyqt==4.11.4=py27_4
-  - tk==8.5.18=0
+prefix: ~/anaconda/envs/img_pipe_py2
