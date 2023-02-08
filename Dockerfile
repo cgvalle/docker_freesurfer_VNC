@@ -1,4 +1,4 @@
-FROM mltooling/ml-workspace-r:0.12.1
+FROM mltooling/ml-workspace:0.13.2
 
 
 
@@ -16,7 +16,7 @@ RUN apt-get -y update && \
         libglu1-mesa 
 
 # Install freesurfer
-ADD libraries/freesurfer-linux-ubuntu18_amd64-7.3.2.tar.gz /usr/local
+ADD libraries/freesurfer-linux-ubuntu20_amd64-7.3.2.tar.gz /usr/local
 
 
 
