@@ -52,20 +52,23 @@ RUN git clone https://github.com/changlabucsf/img_pipe && \
 # Add rave
 RUN apt -y install --no-install-recommends software-properties-common dirmngr && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 && \
-    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" 
-#    apt -y install r-base r-base-dev && \
-#    apt -y  install build-essential file git libsodium-dev libffi-dev \
-#        libbz2-dev libpcre2-dev libcairo2-dev libcurl4-openssl-dev libfftw3-dev \
-#        libfreetype6-dev libfribidi-dev libgit2-dev libhdf5-dev libharfbuzz-dev \
-#        libjpeg-dev libpng-dev libssl-dev libssh2-1-dev libtiff5-dev libv8-dev \
-#        libxml2-dev psmisc procps sudo wget zlib1g-dev libclang-dev && \
-#    wget https://download1.rstudio.org/electron/bionic/amd64/rstudio-2022.12.0-353-amd64.deb && \
-#    dpkg -i ./rstudio-2022.12.0-353-amd64.deb 
+    add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/" && \
+    apt -y install r-base r-base-dev && \
+    apt -y  install build-essential file git libsodium-dev libffi-dev \
+       libbz2-dev libpcre2-dev libcairo2-dev libcurl4-openssl-dev libfftw3-dev \
+       libfreetype6-dev libfribidi-dev libgit2-dev libhdf5-dev libharfbuzz-dev \
+       libjpeg-dev libpng-dev libssl-dev libssh2-1-dev libtiff5-dev libv8-dev \
+       libxml2-dev psmisc procps sudo wget zlib1g-dev libclang-dev && \
+    wget https://download1.rstudio.org/electron/bionic/amd64/rstudio-2022.12.0-353-amd64.deb && \
+    dpkg -i ./rstudio-2022.12.0-353-amd64.deb 
 
 COPY rave.sh .
 RUN chmod +x rave.sh && \
     ./rave.sh && \
     rm -rf rave.sh
+
+COPY fslinstaller.py .
+RUN python fslinstaller.py -d /root/fsl
 
 
 
