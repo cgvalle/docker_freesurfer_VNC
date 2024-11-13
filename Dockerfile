@@ -16,7 +16,7 @@ RUN apt-get -y update && \
         libglu1-mesa 
 
 # Install freesurfer
-ADD libraries/freesurfer-linux-ubuntu20_amd64-7.3.2.tar.gz /usr/local
+ADD libraries/freesurfer-linux-ubuntu20_amd64-7.4.1.tar.gz /usr/local
 
 
 
