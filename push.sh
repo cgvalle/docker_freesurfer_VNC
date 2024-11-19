@@ -1,1 +1,0 @@
-docker push cgvalle/freesurfer_vnc:v1.1

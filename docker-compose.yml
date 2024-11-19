@@ -1,4 +1,3 @@
-version: "3.7"
 services:
   freesurfer_vnc:
     container_name: freesurfer_vnc
